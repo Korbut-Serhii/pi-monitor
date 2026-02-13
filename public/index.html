@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pi Monitor</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; display: flex; justify-content: center; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; }
+        .card { background: #333; padding: 20px; border-radius: 10px; min-width: 150px; text-align: center; }
+        .value { font-size: 1.5em; font-weight: bold; color: #00ff88; }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <div class="card"><div>CPU Load</div><div id="cpu" class="value">0</div>%</div>
+        <div class="card"><div>RAM Usage</div><div id="ram" class="value">0</div>%</div>
+        <div class="card"><div>Temperature</div><div id="temp" class="value">0</div>°C</div>
+        <div class="card"><div>Uptime</div><div id="uptime" class="value">0</div></div>
+        <div class="card"><div>Network Down</div><div id="down" class="value">0</div> KB/s</div>
+        <div class="card"><div>Network Up</div><div id="up" class="value">0</div> KB/s</div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on('stats', (data) => {
+            document.getElementById('cpu').innerText = data.cpu;
+            document.getElementById('ram').innerText = data.ram;
+            document.getElementById('temp').innerText = data.temp;
+            document.getElementById('uptime').innerText = data.uptime;
+            document.getElementById('down').innerText = data.netDown;
+            document.getElementById('up').innerText = data.netUp;
+        });
+    </script>
+</body>
+</html>
