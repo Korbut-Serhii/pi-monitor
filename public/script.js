@@ -8,7 +8,7 @@ const historyChart = new Chart(ctx, {
         labels: [], // Temporal labels will be added dynamically
         datasets: [
             {
-                label: 'Температура (°C)',
+                label: 'Temperature (°C)',
                 borderColor: '#f78166',
                 backgroundColor: 'rgba(247, 129, 102, 0.1)',
                 data: [],
@@ -17,7 +17,7 @@ const historyChart = new Chart(ctx, {
                 yAxisID: 'y'
             },
             {
-                label: 'Загрузка CPU (%)',
+                label: 'CPU Load (%)',
                 borderColor: '#58a6ff',
                 backgroundColor: 'rgba(88, 166, 255, 0.1)',
                 data: [],
