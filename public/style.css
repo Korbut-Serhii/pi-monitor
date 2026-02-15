@@ -1,28 +1,62 @@
-body { 
-    font-family: sans-serif; 
-    background: #1a1a1a; 
-    color: white; 
-    display: flex; 
-    justify-content: center; 
+:root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --accent: #58a6ff;
+    --text: #c9d1d9;
 }
 
-.grid { 
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 20px; 
-    padding: 20px; 
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
 }
 
-.card { 
-    background: #333; 
-    padding: 20px; 
-    border-radius: 10px; 
-    min-width: 150px;
-    text-align: center;
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
 }
 
-.value { 
-    font-size: 1.5em; 
-    font-weight: bold; 
-    color: #00ff88; 
+.card {
+    background: var(--card);
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.big-val {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.bar-container {
+    background: #30363d;
+    height: 8px;
+    border-radius: 4px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.bar {
+    background: var(--accent);
+    height: 100%;
+    width: 0%;
+    transition: 0.3s;
+}
+
+.proc-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    padding: 4px 0;
+    border-bottom: 1px solid #30363d;
 }
