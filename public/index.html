@@ -5,15 +5,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="grid">
-        <div class="card"><div>CPU Load</div><div id="cpu" class="value">0</div>%</div>
-        <div class="card"><div>RAM Usage</div><div id="ram" class="value">0</div>%</div>
-        <div class="card"><div>Temperature</div><div id="temp" class="value">0</div>°C</div>
-        <div class="card"><div>Uptime</div><div id="uptime" class="value">0</div></div>
-        <div class="card"><div>Network Down</div><div id="down" class="value">0</div> KB/s</div>
-        <div class="card"><div>Network Up</div><div id="up" class="value">0</div> KB/s</div>
-    </div>
+<body>
+    <h2 id="os-title">Загрузка системы...</h2>
+    
+    <div class="dashboard">
+        <div class="card">
+            <h3>CPU Usage (<span id="cpu-speed">0</span> GHz)</h3>
+            <div class="big-val"><span id="cpu-total">0</span>%</div>
+            <div id="cpu-cores-container"></div>
+        </div>
 
+        <div class="card">
+            <h3>Memory & Swap</h3>
+            <div>RAM: <span id="ram-val">0</span>%</div>
+            <div class="bar-container"><div id="ram-bar" class="bar"></div></div>
+            <div>SWAP: <span id="swap-val">0</span>%</div>
+            <div class="bar-container"><div id="swap-bar" class="bar" style="background: #f78166"></div></div>
+        </div>
+
+        <div class="card">
+            <h3>Health</h3>
+            <div>Temperature: <span id="temp">0</span>°C</div>
+            <div>Disk Usage: <span id="disk">0</span>%</div>
+            <div class="bar-container"><div id="disk-bar" class="bar" style="background: #3fb950"></div></div>
+        </div>
+
+        <div class="card">
+            <h3>Top Processes (CPU)</h3>
+            <div id="proc-list"></div>
+        </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
