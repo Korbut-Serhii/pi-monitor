@@ -11,19 +11,46 @@ app.use(express.static('public'));
 
 // Funtion to collect system stats
 async function getStats() {
-    const cpu = await si.currentLoad();
-    const mem = await si.mem();
-    const temp = await si.cpuTemperature();
-    const time = si.time();
-    const network = await si.networkStats();
+    const [cpu, cpuFlags, mem, temp, time, net, os, fs] = await Promise.all([
+        si.currentLoad(),
+        si.cpu(),
+        si.mem(),
+        si.cpuTemperature(),
+        si.time(),
+        si.networkStats(),
+        si.osInfo(),
+        si.fsSize()
+    ]);
+
+    // Get top 3 processes by CPU usage
+    const processes = await si.processes();
+    const topProcs = processes.list
+        .sort((a, b) => b.cpu - a.cpu)
+        .slice(0, 3)
+        .map(p => ({ name: p.name, cpu: p.cpu.toFixed(1) }));
 
     return {
-        cpu: cpu.currentLoad.toFixed(1),
-        ram: ((mem.active / mem.total) * 100).toFixed(1),
+        // CPU
+        cpuLoad: cpu.currentLoad.toFixed(1),
+        cpuCores: cpu.cpus.map(c => c.load.toFixed(1)), // Load per core
+        cpuSpeed: cpuFlags.speed, // Frequency in GHz
         temp: temp.main,
+        
+        // RAM
+        ramPct: ((mem.active / mem.total) * 100).toFixed(1),
+        swapPct: ((mem.swapused / mem.swaptotal) * 100 || 0).toFixed(1),
+        
+        // Uptime
         uptime: Math.floor(time.uptime / 3600) + "h " + Math.floor((time.uptime % 3600) / 60) + "m",
-        netDown: (network[0].rx_sec / 1024).toFixed(2), // KB/s
-        netUp: (network[0].tx_sec / 1024).toFixed(2)    // KB/s
+        os: os.distro + " (" + os.release + ")",
+        disk: fs[0].use.toFixed(1),
+        
+        // Network (convert from B/s to KB/s)
+        netDown: (net[0].rx_sec / 1024).toFixed(2),
+        netUp: (net[0].tx_sec / 1024).toFixed(2),
+        
+        // Processes
+        topProcs
     };
 }
 
