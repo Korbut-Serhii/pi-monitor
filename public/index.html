@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pi Monitor</title>
+    <title>Pi Monitor Pro</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<body>
-    <h2 id="os-title">Загрузка системы...</h2>
+    <h2 id="os-title">Loading system...</h2>
     
     <div class="dashboard">
         <div class="card">
@@ -24,17 +24,32 @@
         </div>
 
         <div class="card">
-            <h3>Health</h3>
-            <div>Temperature: <span id="temp">0</span>°C</div>
-            <div>Disk Usage: <span id="disk">0</span>%</div>
+            <h3>Storage Health</h3>
+            <div>Capacity: <span id="disk">0</span>%</div>
             <div class="bar-container"><div id="disk-bar" class="bar" style="background: #3fb950"></div></div>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                Disk I/O (Stress):<br>
+                Read: <span id="disk-read" style="color: #58a6ff">0</span> KB/s<br>
+                Write: <span id="disk-write" style="color: #f78166">0</span> KB/s
+            </div>
         </div>
 
         <div class="card">
-            <h3>Top Processes (CPU)</h3>
+            <h3>Top Processes</h3>
             <div id="proc-list"></div>
         </div>
+
+        <div class="card">
+            <h3>Network Connections (<span id="conn-total">0</span> total)</h3>
+            <div style="font-size: 0.9em; margin-bottom: 5px;">Traffic (KB/s): ↓ <span id="net-down">0</span> | ↑ <span id="net-up">0</span></div>
+            <div id="conn-list"></div>
+        </div>
     </div>
+
+    <div class="chart-container">
+        <canvas id="historyChart"></canvas>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>

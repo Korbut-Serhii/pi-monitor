@@ -60,3 +60,21 @@ body {
     padding: 4px 0;
     border-bottom: 1px solid #30363d;
 }
+
+.chart-container {
+    background: var(--card);
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    height: 300px;
+}
+
+.conn-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    padding: 3px 0;
+    border-bottom: 1px solid #30363d;
+    color: #8b949e;
+}
